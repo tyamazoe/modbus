@@ -18,14 +18,21 @@ except IndexError:
 TARGET_PORT = 502
 buffer_size = 0
 SUPPORTED_FC = (0x03, 0x04)
+
+
+def get_param(msg):
+    param = input(msg)
+    hex_dec = 16 if "0x" in param.lower() else 10
+    return int(param, hex_dec)
+
 try:
-    print("\nEnter Modbus Params")
-    unitId = int(input(" Unit Identifier (Hex): "), 16)
-    functionCode = int(input(" Function Code (Hex): "), 16)
+    print("\nEnter Modbus Params in [0xnn (Hex)] or [nn (Dec)]")
+    unitId = get_param(" Unit Identifier: ")
+    functionCode = get_param(" Function Code: ")
     if functionCode not in  SUPPORTED_FC:
         raise Exception("FC only support {}".format(SUPPORTED_FC))
-    startRegister = int(input(" Start Register (Hex) : "), 16)
-    numRegister = int(input(" Num of Registers (Hex) : "), 16)
+    startRegister = get_param(" Start Register: ")
+    numRegister = get_param(" Num of Registers: ")
 
     # Send request
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
