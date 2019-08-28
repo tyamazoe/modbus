@@ -63,5 +63,48 @@ Modbus Application Data Unit (ADU)
 
 Done
 ```
+## writer/modbus_writer.py
+Write modbus register by modbus/tcp. Support only function code 0x05 (Force Single Coil).
+
+Input parameters in either hex (with 0x, e.g 0x0fa2) or dec (e.g 4002).
+
+### Usage
+
+`$python modbus_writer.py [ip address]`
+
+### Example
+Off(0)
+```
+$ python modbus_writer.py 192.168.1.99
+
+Enter Modbus Params in [0xnn (Hex)] or [nn (Dec)]
+ Unit Identifier: 1
+ Function Code: 5
+ Start Register: 0x101
+ On(1) or Off(0):0
+
+TX: b'000000000006010501010000'
+RX: b'000000000006010501010000'
+
+OK, write completed.
+Done
+```
+On(1)
+```
+$ python modbus_writer.py 192.168.1.99
+
+Enter Modbus Params in [0xnn (Hex)] or [nn (Dec)]
+ Unit Identifier: 1
+ Function Code: 5
+ Start Register: 0x101
+ On(1) or Off(0):1
+
+TX: b'00000000000601050101ff00'
+RX: b'00000000000601050101ff00'
+
+OK, write completed.
+Done
+```
+
 
 
